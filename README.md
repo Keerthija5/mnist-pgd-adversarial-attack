@@ -93,14 +93,6 @@ This highlights the importance of evaluating machine learning models under adver
 
 ---
 
-## Code
-
-`task_2_pgd_6.py`
-
-Implementation of CNN training and PGD adversarial attack evaluation.
-
----
-
 ## Author
 
 Keerthija Bontu  
