@@ -38,6 +38,9 @@ Attack parameters:
 | 2.5 | 0.33 | 0.67 |
 | 3.0 | 0.21 | 0.79 |
 As the perturbation strength increased, adversarial accuracy decreased significantly, demonstrating the vulnerability of neural networks to carefully crafted adversarial inputs.
+## Visualization
+The following plot shows the effect of increasing the L2 perturbation budget (dmax) on adversarial accuracy.
+![PGD Attack Results](pgd_attack_results.png)
 ## Key Insight
 Even a model that performs well on clean test data can experience severe performance degradation when exposed to adversarial perturbations.
 This highlights the importance of evaluating machine learning systems under adversarial conditions to understand their robustness.
