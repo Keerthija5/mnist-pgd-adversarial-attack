@@ -48,5 +48,6 @@ This highlights the importance of evaluating machine learning systems under adve
 `task_2_pgd_6.py`  
 Implementation of CNN training and PGD adversarial attack evaluation.
 ## Author
+
 Keerthija Bontu  
-M.Eng Information Technology(Artificial Intelligence)
+M.Eng. Information Technology (Specialization: Artificial Intelligence)
