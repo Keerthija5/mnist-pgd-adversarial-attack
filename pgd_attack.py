@@ -4,21 +4,19 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 
 
 def main():
-    # -------------------------
-    # 0) Settings (edit here)
-    # -------------------------
+    # 0) Settings 
     seed = 7
     np.random.seed(seed)
 
-    # Dataset sizes (we use "up to" these values, never exceed available)
+    # Dataset sizes 
     n_train = 60000
     n_test = 10000
 
     # Attack subset
     n_attack = 200                 # how many test images to attack
-    attack_only_correct = True     # recommended: attack only correctly-classified samples
+    attack_only_correct = True     
 
-    # Model training (as you asked: 3 epochs)
+    # Model training 
     epochs = 3
     batch_size = 64
     lr = 0.01
@@ -35,9 +33,7 @@ def main():
     # Pixel bounds after normalization
     lb, ub = 0.0, 1.0
 
-    # -------------------------
     # 1) Imports that need SecML + PyTorch
-    # -------------------------
     import torch
     from torch import nn, optim
     from secml.data.loader import CDataLoaderMNIST
@@ -46,9 +42,7 @@ def main():
 
     torch.manual_seed(seed)
 
-    # -------------------------
     # 2) Simple CNN for MNIST
-    # -------------------------
     class SimpleCNN(nn.Module):
         def __init__(self):
             super().__init__()
@@ -65,9 +59,7 @@ def main():
             x = torch.relu(self.fc1(x))
             return self.fc2(x)
 
-    # -------------------------
     # 3) Load MNIST (SecML)
-    # -------------------------
     loader = CDataLoaderMNIST()
     tr = loader.load("training")
     ts = loader.load("testing")
@@ -86,9 +78,7 @@ def main():
     tr.X /= 255.0
     ts.X /= 255.0
 
-    # -------------------------
     # 4) Train CNN
-    # -------------------------
     model = SimpleCNN()
     loss_fn = nn.CrossEntropyLoss()
     opt = optim.SGD(model.parameters(), lr=lr, momentum=0.9)
@@ -113,9 +103,7 @@ def main():
     acc_test = accuracy_score(y_true_test, y_pred_test)
     print("Clean test accuracy:", round(acc_test, 4))
 
-    # -------------------------
     # 5) Choose subset to attack
-    # -------------------------
     rng = np.random.default_rng(seed)
 
     if attack_only_correct:
@@ -137,9 +125,7 @@ def main():
     print("\nConfusion matrix (clean subset):")
     print(confusion_matrix(y_true_sub, y_pred_clean_sub))
 
-    # -------------------------
     # 6) PGD sweep over dmax (L2)
-    # -------------------------
     solver_params = {"eta": eta, "max_iter": max_iter, "eps": 1e-6}
 
     adv_acc_list = []
@@ -172,9 +158,7 @@ def main():
         print("Subset adversarial accuracy:", round(acc_adv, 4))
         print("Accuracy drop:", round(acc_clean_sub - acc_adv, 4))
 
-    # -------------------------
     # 7) Plot: accuracy vs dmax
-    # -------------------------
     plt.figure(figsize=(7, 4))
     plt.plot(dmax_values, adv_acc_list, marker="o")
     plt.ylim(0, 1.05)
@@ -184,9 +168,7 @@ def main():
     plt.grid(True)
     plt.show()
 
-    # -------------------------
     # 8) ONE combined visualization for all dmax values
-    # -------------------------
     X_clean_np = X_sub.tondarray()
     n_show = min(8, n_attack)
 
