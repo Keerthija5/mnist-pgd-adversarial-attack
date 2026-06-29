@@ -1,0 +1,7 @@
+dmax,clean_subset_accuracy,adversarial_accuracy,accuracy_drop,attack_success_rate,avg_l2_perturbation_norm,max_l2_perturbation_norm,attacked_samples,max_iter,eta
+0.5,1.0,0.99,0.01,0.01,0.3687,0.5,200,40,0.2
+1.0,1.0,0.915,0.085,0.085,0.9039,1.0,200,40,0.2
+1.5,1.0,0.78,0.22,0.22,1.3776,1.5,200,40,0.2
+2.0,1.0,0.53,0.47,0.47,1.8545,2.0,200,40,0.2
+2.5,1.0,0.33,0.67,0.67,2.3215,2.5,200,40,0.2
+3.0,1.0,0.21,0.79,0.79,2.7595,3.0,200,40,0.2

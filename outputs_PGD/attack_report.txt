@@ -1,0 +1,32 @@
+CNN Robustness Evaluation under PGD-L2 Adversarial Attacks
+
+Dataset: MNIST
+Training samples used: 60000
+Test samples used: 10000
+Attacked subset size: 200
+Clean test accuracy: 0.9834
+Clean attacked-subset accuracy: 1.0000
+
+Attack setup:
+- Attack: PGD-L2
+- max_iter: 40
+- eta: 0.2
+- dmax sweep: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
+
+Main result:
+- At the strongest attack budget dmax=3.0, adversarial accuracy dropped to 0.2100.
+- Accuracy drop at strongest attack: 0.7900.
+- Attack success rate at strongest attack: 0.7900.
+- Average L2 perturbation norm at strongest attack: 2.7595.
+
+Interpretation:
+Clean accuracy alone is not enough to judge model reliability. The same CNN that performs well on clean MNIST images becomes much less reliable when small adversarial perturbations are introduced.
+The model first falls below the 50% reliability threshold at dmax=2.5.
+
+Saved outputs:
+- robustness_summary.csv
+- confusion_matrix_clean.csv
+- confusion_matrix_strongest_attack.csv
+- accuracy_vs_dmax.png
+- adversarial_examples.png
+- confusion_matrices.png
