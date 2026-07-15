@@ -97,14 +97,11 @@ The script trains the CNN, runs the PGD-L2 attack sweep, prints the results, and
 - Perturbation norms help connect attack strength with model performance.
 - Confusion matrices before and after attack make model behaviour easier to inspect.
 
-## Current Limitations
+## Project Status and Next Steps
 
-- The project uses MNIST, which is simple compared with more complex image datasets.
-- The attack evaluation focuses on PGD-L2 only.
-- The model is trained for a small number of epochs.
-- No defence method such as adversarial training is implemented yet.
+This is a focused robustness-check project on MNIST. I kept MNIST because the goal was to understand the attack and evaluation workflow clearly before moving to a larger image dataset.
 
-## Future Improvements
+Next things I would like to try:
 
 - Add FGSM as a faster baseline attack.
 - Add adversarial training and compare robustness before and after defence.
