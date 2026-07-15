@@ -14,7 +14,7 @@ def main():
     output_dir = "outputs_PGD"
     save_outputs = True
     show_plots = False
-    robustness_threshold = 0.50
+    review_marker = 0.50
 
     # Dataset sizes (we use "up to" these values, never exceed available)
     n_train = 60000
@@ -251,7 +251,7 @@ def main():
     # -------------------------
     fig, ax = plt.subplots(figsize=(7, 4))
     ax.plot(dmax_values, adv_acc_list, marker="o", label="Adversarial accuracy")
-    ax.axhline(robustness_threshold, color="red", linestyle="--", label="Reliability threshold")
+    ax.axhline(review_marker, color="red", linestyle="--", label="Review marker")
     ax.set_ylim(0, 1.05)
     ax.set_xlabel("dmax (L2 perturbation budget)")
     ax.set_ylabel("Adversarial accuracy on attacked subset")
@@ -307,7 +307,7 @@ def main():
     if save_outputs:
         first_unreliable = None
         for row in robustness_rows:
-            if row["adversarial_accuracy"] < robustness_threshold:
+            if row["adversarial_accuracy"] < review_marker:
                 first_unreliable = row
                 break
 
@@ -340,12 +340,12 @@ def main():
 
         if first_unreliable is not None:
             robustness_message = (
-                f"The model first falls below the {robustness_threshold:.0%} reliability threshold "
+                f"The model first falls below the {review_marker:.0%} review marker "
                 f"at dmax={first_unreliable['dmax']}."
             )
         else:
             robustness_message = (
-                f"The model stayed above the {robustness_threshold:.0%} reliability threshold "
+                f"The model stayed above the {review_marker:.0%} review marker "
                 "for all tested dmax values."
             )
         report_lines.append(robustness_message)

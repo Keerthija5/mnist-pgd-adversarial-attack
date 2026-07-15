@@ -1,4 +1,4 @@
-CNN Robustness Evaluation under PGD-L2 Adversarial Attacks
+CNN Robustness Check with PGD-L2 Adversarial Attacks
 
 Dataset: MNIST
 Training samples used: 60000
@@ -21,7 +21,7 @@ Main result:
 
 Interpretation:
 Clean accuracy alone is not enough to judge model reliability. The same CNN that performs well on clean MNIST images becomes much less reliable when small adversarial perturbations are introduced.
-The model first falls below the 50% reliability threshold at dmax=2.5.
+The model first falls below the 50% review marker at dmax=2.5.
 
 Saved outputs:
 - robustness_summary.csv

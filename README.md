@@ -1,8 +1,8 @@
-# CNN Robustness Evaluation under PGD Adversarial Attacks
+# CNN Robustness Check with PGD Adversarial Attacks
 
-I built this project to understand how a CNN model behaves when the input images are slightly changed in a way that is designed to fool the model. The model performs well on clean MNIST digits, but the main question I wanted to test was: **does clean accuracy still mean the model is reliable when adversarial perturbations are introduced?**
+I built this project to understand how a CNN model behaves when the input images are slightly changed in a way that is designed to fool the model. The model performs well on clean MNIST digits, but the main question I wanted to test was: **does clean accuracy still tell the full story when adversarial perturbations are introduced?**
 
-The project trains a simple CNN on MNIST and then evaluates it using a PGD-L2 adversarial attack. I sweep the attack budget `dmax` from small to stronger perturbations and measure how quickly the model accuracy drops.
+The project trains a simple CNN on MNIST and then evaluates it using a PGD-L2 adversarial attack. I sweep the attack budget `dmax` from small to stronger perturbations and measure how quickly the model accuracy drops. I kept the project focused on evaluation rather than making it a large security project.
 
 ## What This Project Does
 
@@ -14,13 +14,13 @@ The project trains a simple CNN on MNIST and then evaluates it using a PGD-L2 ad
 - Calculates average and maximum L2 perturbation norms.
 - Saves clean and adversarial confusion matrices.
 - Saves a robustness summary CSV and a short text report.
-- Generates visual outputs for the robustness curve and adversarial examples.
+- Generates visual outputs for the accuracy curve and adversarial examples.
 
 ## Why I Worked on This
 
 In many basic deep learning projects, the model is only judged using clean accuracy. This project helped me understand why that is not enough. A model can look strong on normal test data but still be vulnerable when the input is modified by an adversarial attack.
 
-I kept MNIST because it is a clean and understandable dataset for learning adversarial robustness. The focus of this project is not dataset complexity, but the evaluation workflow: attack setup, robustness curve, perturbation budget, accuracy drop, and interpretation.
+I kept MNIST because it is a clean and understandable dataset for learning adversarial robustness. The focus of this project is not dataset complexity, but the evaluation workflow: attack setup, perturbation budget, accuracy drop, confusion matrices, and interpretation.
 
 ## Attack Setup
 
@@ -44,9 +44,9 @@ As the PGD attack budget increased, adversarial accuracy dropped strongly:
 
 At the strongest attack budget, the attack success rate was **0.7900**, meaning 79% of the attacked samples were misclassified.
 
-The model first dropped below the 50% reliability threshold at `dmax = 2.5`.
+The model first dropped below my 50% review marker at `dmax = 2.5`. I used this marker only to make the result easier to discuss, not as a formal robustness standard.
 
-## Robustness Curve
+## Accuracy Curve
 
 ![Accuracy vs dmax](assets/screenshots/accuracy-vs-dmax.png)
 
@@ -68,7 +68,7 @@ The model first dropped below the 50% reliability threshold at `dmax = 2.5`.
 
 ## Saved Outputs
 
-Each run saves the same output files into `outputs_PGD/`, so the project stays clean and reproducible.
+Each run saves the same output files into `outputs_PGD/`, so I can compare results without relying only on terminal output.
 
 ```text
 outputs_PGD/
@@ -87,19 +87,19 @@ outputs_PGD/
 python3 pgd_attack.py
 ```
 
-The script trains the CNN, runs the PGD-L2 attack sweep, prints the robustness results, and saves the output files.
+The script trains the CNN, runs the PGD-L2 attack sweep, prints the results, and saves the output files.
 
 ## Main Things I Learned
 
-- Clean accuracy alone does not show whether a model is robust.
-- Increasing the adversarial perturbation budget can rapidly reduce model reliability.
+- Clean accuracy alone does not show how a model behaves under adversarial changes.
+- Increasing the adversarial perturbation budget can rapidly reduce model accuracy.
 - Attack success rate is a useful way to explain robustness failure.
 - Perturbation norms help connect attack strength with model performance.
 - Confusion matrices before and after attack make model behaviour easier to inspect.
 
 ## Current Limitations
 
-- The project uses MNIST, which is simple compared to real-world image data.
+- The project uses MNIST, which is simple compared with more complex image datasets.
 - The attack evaluation focuses on PGD-L2 only.
 - The model is trained for a small number of epochs.
 - No defence method such as adversarial training is implemented yet.
@@ -111,7 +111,3 @@ The script trains the CNN, runs the PGD-L2 attack sweep, prints the robustness r
 - Test the same evaluation workflow on Fashion-MNIST or CIFAR-10.
 - Add per-class robustness analysis.
 - Compare L2 and Linf perturbation constraints.
-
-## Resume Summary
-
-Built an adversarial robustness evaluation pipeline for a CNN classifier on MNIST using PGD-L2 attacks. Evaluated clean accuracy, adversarial accuracy, attack success rate, perturbation norms, and confusion matrices across increasing attack budgets, generating saved robustness reports and visualizations for model vulnerability analysis.
